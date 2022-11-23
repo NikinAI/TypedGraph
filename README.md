@@ -6,8 +6,8 @@ A library to describe **Typed Condensed Oriented Directed Acyclic Planar Multigr
 
 | Keyword | Definition |
 | ------- | ---------- |
-| **Vertex** / **Vertices** | Sometimes call a *Node*, they are the components of the graph |
-| **Edge** | Join two vertices |
+| **Vertex** / **Vertices** | Sometimes called a *Node*, they are the components of the graph |
+| **Edge** | Joins two vertices |
 | **Directed Edge** | An edge that has a one way traversal direction. Only from and to a vertex but not back |
 | **Graph** | Collection of edges and vertices |
 | **Path** | List of vertices and edges with no repeated vertices |
@@ -29,7 +29,7 @@ Sources:
 
 ## Potential applications
 
-Potential application for this library would be:
+Potential applications for this library would be:
 
 * UML Class diagram of calls and dependencies
     * Each vertex can be of the type of the Class 
