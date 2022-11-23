@@ -62,7 +62,7 @@ For given edges types: F and G
 
 The user should be able to define authorized condition:
 
-For given instances: `A` connected to `B` through `F` can be allowed, but not `B` to `A`.
+For instance, `A` connected to `B` through `F` can be allowed, but not `B` to `A`.
 
 Let's define a set of rules using the following syntax:
 
