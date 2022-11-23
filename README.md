@@ -21,7 +21,7 @@ A library to describe **Typed Condensed Oriented Directed Acyclic Planar Multigr
 | **Condensed Graph** | A graph where every pair of vertices are connected by either zero or one edge |
 | **Multigraphs** | A graph without loops |
 | **Oriented Graph** | A graph without any symmetric pair of directed edges |
-| **Typed Graph** | Not a term from Graph Theory but from Computer Science. A typed graph is a graph where each edges and nodes have a given data type. |
+| **Typed Graph** | Not a term from Graph Theory but from Computer Science. A typed graph is a graph where each one of the edges and the nodes has a given data type. |
 
 Sources:
 * https://www.statisticshowto.com/graph-theory
@@ -39,7 +39,7 @@ Potential applications for this library would be:
     * Transaction graph
     * Ownership flow
 * Knowledge graph
-* Data pipeline in data engineering application
+* Data pipeline in data engineering applications
     * Each vertex can be a step in data processing
     * Each edge can be a type of data transfer
 * Definition of neural network / machine learning
@@ -58,13 +58,13 @@ Because it is a directed graph, we can also find predecessor of a given vertex.
 The creation of the graph must be Vertex-typed-constraint. 
 
 For given vertices types: A, B and C 
-For given edge types: F and G
+For given edges types: F and G
 
-The end user should be able to define authorized condition:
+The user should be able to define authorized condition:
 
-for instance `A` connected to `B` through `F` can be allowed but not `B` to `A`.
+For given instances: `A` connected to `B` through `F` can be allowed, but not `B` to `A`.
 
-Let's defined a set of rules using the following syntax:
+Let's define a set of rules using the following syntax:
 
 `VERTEX_FROM >EDGE_TYPE> VERTEX_TO`
 
@@ -116,7 +116,7 @@ Now imagine that each vertex could carry information about what they do in a bus
 
 In this implementation of a graph, we would need a new type of constraint: a *content flow contraint*.
 
-Based on previous section related to *Node constraint*, let's use this new syntax:
+Based on the previous section related to *Node constraint*, let's use this new syntax:
 
 `VERTEX_FROM[IN, TRANSIT] >EDGE_TYPE> VERTEX_TO[TRANSIT, OUT]`
 
@@ -157,4 +157,4 @@ val graph = potato_cooking ++ steak_cooking
 
 ```
 
-Rules should be able to be written to allow this type of graph structure and only this. For instance, we would not want to allow `Knives[Peeled_potatoes, Potatoes] >>> Pot[Peeled_potatoes, Cooked_potatoes]` because the content flow would be inconsistant. Following the previous section, we would also write rules to forbid edge construction like `Pot >>> Storage`
+Rules should be able to be written to allow this type of graph structure and no other. For instance, we do not want to allow `Knives[Peeled_potatoes, Potatoes] >>> Pot[Peeled_potatoes, Cooked_potatoes]` because the content flow would be inconsistant. Following the previous section, we can also write rules to forbid edge construction like `Pot >>> Storage`
