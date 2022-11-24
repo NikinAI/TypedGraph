@@ -157,4 +157,4 @@ val graph = potato_cooking ++ steak_cooking
 
 ```
 
-Rules should be able to be written to allow this type of graph structure and no other. For instance, we do not want to allow `Knives[Peeled_potatoes, Potatoes] >>> Pot[Peeled_potatoes, Cooked_potatoes]` because the content flow would be inconsistant. Following the previous section, we can also write rules to forbid edge construction like `Pot >>> Storage`
+Rules should be able to be written to allow this type of graph structure and no other. For instance, we do not want to allow `Knives[Peeled_potatoes, Potatoes] >>> Pot[Peeled_potatoes, Cooked_potatoes]` because the content flow would be inconsistent. Following the previous section, we can also write rules to forbid edge construction like `Pot >>> Storage`
