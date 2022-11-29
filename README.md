@@ -57,8 +57,8 @@ Because it is a directed graph, we can also find predecessor of a given vertex.
 
 The creation of the graph must be Vertex-typed-constraint. 
 
-For given vertices types: A, B and C 
-For given edges types: F and G
+For given vertex types: A, B and C 
+For given edge types: F and G
 
 The user should be able to define authorized condition:
 
