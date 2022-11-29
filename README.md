@@ -6,9 +6,9 @@ A library to describe **Typed Condensed Oriented Directed Acyclic Planar Multigr
 
 | Keyword | Definition |
 | ------- | ---------- |
-| **Vertex** / **Vertices** | Sometimes called a *Node*, they are the components of the graph |
-| **Edge** | Joins two vertices |
-| **Directed Edge** | An edge that has a one way traversal direction. Only from and to a vertex but not back |
+| **Vertex** / **Vertices** | Sometimes called a *Node(s)*, they are the components of the graph |
+| **Edge** | Joins two vertices. They are the second component of the graph |
+| **Directed Edge** | An edge that has a one way traversal direction. Only from *start vertex* to *end vertex* but not from end *vertex back* to *start vertex*. |
 | **Graph** | Collection of edges and vertices |
 | **Path** | List of vertices and edges with no repeated vertices |
 | **Predecessor** | The vertex before a given vertex on a path |
@@ -157,4 +157,5 @@ val graph = potato_cooking ++ steak_cooking
 
 ```
 
-Rules should be able to be written to allow this type of graph structure and only this. For instance, we would not want to allow `Knives[Peeled_potatoes, Potatoes] >>> Pot[Peeled_potatoes, Cooked_potatoes]` because the content flow would be inconsistant. Following the previous section, we would also write rules to forbid edge construction like `Pot >>> Storage`
+Rules should be able to be written to allow this type of graph structure and only this. For instance, we would not want to allow `Knives[Peeled_potatoes, Potatoes] >>> Pot[Peeled_potatoes, Cooked_potatoes]` because the content flow would be inconsistant. Following the previous section, we would also write rules to forbid edge construction like `Pot >>> Storage`.
+
