@@ -22,12 +22,16 @@ jobs:
 
       - name: test
         run: sbt test
+
       - name: test-coverage
         # TODO: Use coveralls
+        run: echo "test coverage"
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
       - name: mutation test
         # TODO: Use stryker
+        run: echo "mutation test"
 
   build:
     runs-on: ubuntu-latest
