@@ -29,6 +29,14 @@ jobs:
           path: target/test-reports/*.xml
           reporter: java-junit
 
+      - name: publish test results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          junit_files: "target/test-reports/*.xml"
+          check_name: Unit Tests Reporting (2)
+          comment_title: Test Reporter
+
       - name: test coverage
         # TODO: Use coveralls
         run: echo "test coverage"
