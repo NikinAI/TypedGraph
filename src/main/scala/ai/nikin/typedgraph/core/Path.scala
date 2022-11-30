@@ -1,8 +1,9 @@
 package ai.nikin.typedgraph.core
 
-class Path(edges: List[Edge]) {
-  lazy val from: Vertex = edges.head.from
-  lazy val to:   Vertex = edges.last.to
+class Path(val edges: List[Edge]) {
+  lazy val from:     Vertex       = edges.head.from
+  lazy val to:       Vertex       = edges.last.to
+  lazy val vertices: List[Vertex] = from :: edges.map(_.to)
 
   def >>>(next: Vertex): Path = Path(edges, to >>> next)
 }

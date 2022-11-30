@@ -13,11 +13,15 @@ class PathTest extends Test("Path") {
 
     assertEquals(p.from, v1)
     assertEquals(p.to, v3)
+    assertEquals(p.edges, List(e1, e2))
+    assertEquals(p.vertices, List(v1, v2, v3))
+
   }
 
   test("connect") {
-    val e = Vertex("a") >>> Vertex("b") >>> Vertex("c") >>> Vertex("d")
-    assertEquals(e.from.label, "a")
-    assertEquals(e.to.label, "d")
+    val p = Vertex("a") >>> Vertex("b") >>> Vertex("c") >>> Vertex("d")
+    assertEquals(p.from.label, "a")
+    assertEquals(p.to.label, "d")
+    assertEquals(p.vertices.map(_.label), List("a", "b", "c", "d"))
   }
 }
