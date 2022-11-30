@@ -9,6 +9,6 @@ class Path(val edges: List[Edge]) {
 }
 
 object Path {
-  def apply(edges: Edge*): Path = new Path(edges.toList)
+  def apply(edge:  Edge, edges:           Edge*): Path = new Path(edge :: edges.toList)
   def apply(edges: List[Edge], moreEdges: Edge*): Path = new Path(edges ++ moreEdges)
 }
