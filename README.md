@@ -4,24 +4,24 @@ A library to describe **Typed Condensed Oriented Directed Acyclic Planar Multigr
 
 ## Definitions
 
-| Keyword | Definition |
-| ------- | ---------- |
-| **Vertex** / **Vertices** | Sometimes called a *Node(s)*, they are the components of the graph |
-| **Edge** | Joins two vertices. They are the second component of the graph |
-| **Directed Edge** | An edge that has a one way traversal direction. Only from *start vertex* to *end vertex* but not from end *vertex back* to *start vertex*. |
-| **Graph** | Collection of edges and vertices |
-| **Path** | List of vertices and edges with no repeated vertices |
-| **Predecessor** | The vertex before a given vertex on a path |
-| **Successor** | The vertex after a given vertex on a path |
-| **Cycle** | A List of vertices and edges looping back to itself. The start vertex is the same as the end vertex |
-| **Loop** | An edge that connect a vertex to itself |
-| **Directed Graph** | A graph where the edges have a direction *from* and *to* a vertex |
-| **Acyclic Graph** | A graph that does not contain any cycles |
-| **Planar Graph** | A graph that can be drawn in such a way that no edges cross each other |
-| **Condensed Graph** | A graph where every pair of vertices are connected by either zero or one edge |
-| **Multigraphs** | A graph without loops |
-| **Oriented Graph** | A graph without any symmetric pair of directed edges |
-| **Typed Graph** | Not a term from Graph Theory but from Computer Science. A typed graph is a graph where each one of the edges and the nodes has a given data type. |
+| Keyword                   | Definition                                                                                                                                        |
+|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Vertex** / **Vertices** | Sometimes called a *Node(s)*, they are the components of the graph                                                                                |
+| **Edge**                  | Joins two vertices. They are the second component of the graph                                                                                    |
+| **Directed Edge**         | An edge that has a one way traversal direction. Only from *start vertex* to *end vertex* but not from end *vertex back* to *start vertex*.        |
+| **Graph**                 | Collection of edges and vertices                                                                                                                  |
+| **Path**                  | List of vertices and edges with no repeated vertices                                                                                              |
+| **Predecessor**           | The vertex before a given vertex on a path                                                                                                        |
+| **Successor**             | The vertex after a given vertex on a path                                                                                                         |
+| **Cycle**                 | A List of vertices and edges looping back to itself. The start vertex is the same as the end vertex                                               |
+| **Loop**                  | An edge that connect a vertex to itself                                                                                                           |
+| **Directed Graph**        | A graph where the edges have a direction *from* and *to* a vertex                                                                                 |
+| **Acyclic Graph**         | A graph that does not contain any cycles                                                                                                          |
+| **Planar Graph**          | A graph that can be drawn in such a way that no edges cross each other                                                                            |
+| **Condensed Graph**       | A graph where every pair of vertices are connected by either zero or one edge                                                                     |
+| **Multigraphs**           | A graph without loops                                                                                                                             |
+| **Oriented Graph**        | A graph without any symmetric pair of directed edges                                                                                              |
+| **Typed Graph**           | Not a term from Graph Theory but from Computer Science. A typed graph is a graph where each one of the edges and the nodes has a given data type. |
 
 Sources:
 * https://www.statisticshowto.com/graph-theory
