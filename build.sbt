@@ -10,7 +10,6 @@ lazy val root = project
     organizationName      := "NikinAI",
     
     libraryDependencies   += "org.scalameta" %% "munit" % "0.7.29",
-    testFrameworks        += new TestFramework("munit.Framework"),
 
     addCommandAlias("runScalafmt", ";scalafmtAll;scalafmtSbt")
   )
