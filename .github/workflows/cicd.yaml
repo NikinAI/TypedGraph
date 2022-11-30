@@ -13,7 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - uses: olafurpg/setup-scala@v11
 
       - name: test
         run: sbt test
@@ -37,7 +36,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - uses: olafurpg/setup-scala@v11
 
       - name: publish staging
         # TODO: publish to staging sonatype
