@@ -28,7 +28,7 @@ jobs:
           fail-on-error: true
           name: Unit Tests
           path: target/test-reports/*.xml
-          reporter: Unit Tests Bot
+          reporter: jest-junit
 
       - name: test-coverage
         # TODO: Use coveralls
