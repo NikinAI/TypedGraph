@@ -36,6 +36,7 @@ jobs:
           junit_files: "target/test-reports/*.xml"
           check_name: Basic Unit Tests Reporting
           comment_title: Tests Report
+          time_unit: milliseconds
 
       - name: test coverage
         # TODO: Use coveralls
