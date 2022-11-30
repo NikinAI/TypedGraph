@@ -28,6 +28,19 @@ jobs:
         run: echo "mutation test"
         if: github.ref == 'refs/heads/main'
 
+        # https://github.com/filosganga/handrail/blob/92e1de2e7822df39289d2e4d5a9e866592f13738/.github/workflows/main.yml#L135-L145
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure() # run this step even if previous step failed
+        with:
+          list-suites: "all"
+          list-tests: "all"
+          max-annotations: 10
+          fail-on-error: true
+          name: Unit Tests
+          path: target/test-reports/*.xml
+          reporter: Unit Tests Bot
+
   deploy:
     runs-on: ubuntu-latest
 
