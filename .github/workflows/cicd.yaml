@@ -12,12 +12,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: test
         run: sbt test
 
-      - name: test-coverage
+      - name: detailed test reporting
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          list-suites: "all"
+          list-tests: "all"
+          max-annotations: 10
+          fail-on-error: true
+          name: Detailed Unit Tests Reporting
+          path: "target/test-reports/*.xml"
+          reporter: java-junit
+
+      - name: basic test reporting
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          junit_files: "target/test-reports/*.xml"
+          check_name: Basic Unit Tests Reporting
+          comment_title: Tests Report
+          time_unit: milliseconds
+
+      - name: test coverage
         # TODO: Use coveralls
         run: echo "test coverage"
         env:
