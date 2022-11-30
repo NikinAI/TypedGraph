@@ -17,7 +17,7 @@ jobs:
       - name: test
         run: sbt test
 
-      - name: test reporting
+      - name: detailed test reporting
         uses: dorny/test-reporter@v1
         if: always()
         with:
@@ -25,17 +25,17 @@ jobs:
           list-tests: "all"
           max-annotations: 10
           fail-on-error: true
-          name: Unit Tests Reporting
-          path: target/test-reports/*.xml
+          name: Detailed Unit Tests Reporting
+          path: "target/test-reports/*.xml"
           reporter: java-junit
 
-      - name: publish test results
+      - name: basic test reporting
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           junit_files: "target/test-reports/*.xml"
-          check_name: Unit Tests Reporting (2)
-          comment_title: Test Reporter
+          check_name: Basic Unit Tests Reporting
+          comment_title: Tests Report
 
       - name: test coverage
         # TODO: Use coveralls
