@@ -1,7 +1,7 @@
 package ai.nikin.typedgraph.core
 
-class Graph(val edges: Set[Edge]) {}
+class Graph(val edges: Set[AnyEdge]) {}
 
 object Graph {
-  def apply(edges: Edge*): Graph = new Graph(edges.toSet)
+  def apply(edges: AnyEdge*): Graph = new Graph(edges.toSet)
 }
