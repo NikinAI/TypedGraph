@@ -37,6 +37,7 @@ jobs:
           check_name: Basic Unit Tests Reporting
           comment_title: Tests Report
           time_unit: milliseconds
+          job_summary: false
 
       - name: test coverage
         # TODO: Use coveralls
