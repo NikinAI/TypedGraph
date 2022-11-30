@@ -1,6 +1,6 @@
 package ai.nikin.typedgraph.core
 
-import ai.nikin.typedgraph.core.testUtils.Test
+import ai.nikin.typedgraph.core.testUtils.{Test, VertexExample}
 
 class VertexTest extends Test("Vertex") {
   test("create/retrieve") {
@@ -14,5 +14,12 @@ class VertexTest extends Test("Vertex") {
     val e = Vertex("a") >>> Vertex("b")
     assertEquals(e.from.label, "a")
     assertEquals(e.to.label, "b")
+  }
+
+  test("typed creation") {
+    val v = VertexExample("v")
+    assertEquals(v.n, "v")
+    // Dropping the '$'
+    assertEquals(v.getClass.getCanonicalName, VertexExample.getClass.getCanonicalName.dropRight(1))
   }
 }

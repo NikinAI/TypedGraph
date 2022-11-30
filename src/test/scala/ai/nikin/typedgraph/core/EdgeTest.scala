@@ -1,6 +1,6 @@
 package ai.nikin.typedgraph.core
 
-import ai.nikin.typedgraph.core.testUtils.Test
+import ai.nikin.typedgraph.core.testUtils.{Test, VertexExample}
 
 class EdgeTest extends Test("Edge") {
   test("create/retrieve") {
@@ -16,5 +16,14 @@ class EdgeTest extends Test("Edge") {
     val e = Vertex("a") >>> Vertex("b") >>> Vertex("c")
     assertEquals(e.from.label, "a")
     assertEquals(e.to.label, "c")
+  }
+
+  test("typed creation") {
+    val v1 = VertexExample("v")
+    val v2 = VertexExample("v2")
+    val p: Edge[VertexExample, VertexExample] = v1 >>> v2
+
+    assertEquals(p.from, v1)
+    assertEquals(p.to, v2)
   }
 }
