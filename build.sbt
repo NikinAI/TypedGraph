@@ -24,4 +24,27 @@ lazy val root =
           "-Ywarn-unused:params", "-Ywarn-unused:locals", "-Ywarn-value-discard",
           "-Ywarn-unused:privates",
         ),
+      version                                := {
+        val v = IO.readLines(new File("VERSION")).head
+
+        if(!v.startsWith("v")) throw new IllegalStateException(
+          "You need to have the version number to start with 'v'. Instead found: $v"
+        )
+
+        v
+      },
+
+      // https://github.com/djspiewak/sbt-github-packages#usage
+      githubOwner       := "NikinAI",
+      githubRepository  := "TypedGraph",
+      publishMavenStyle := true,
+      // https://github.com/djspiewak/sbt-github-packages/issues/24#issuecomment-898423448
+      githubTokenSource :=
+        TokenSource.Or(
+          // Injected during a github workflow for publishing
+          TokenSource.Environment("GITHUB_TOKEN"),
+
+          // local token set in ~/.gitconfig
+          TokenSource.GitConfig("github.token"),
+        ),
     )
