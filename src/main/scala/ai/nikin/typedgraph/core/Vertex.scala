@@ -13,8 +13,8 @@ abstract class Vertex[SELF <: Vertex[SELF]](override val label: String)
   type OUT
 
   def >>>[
-      V <: Vertex[V] { type IN = SELF#OUT },
-      EDGE[A <: Vertex[A], B <: Vertex[B] { type IN = A#OUT }] <: Edge[A, EDGE, B],
+      V <: VertexTO[SELF, V],
+      EDGE[A <: Vertex[A], B <: VertexTO[A, B]] <: Edge[A, EDGE, B],
   ](next: V)(implicit ev: CanMakeEdge[SELF, EDGE, V]): EDGE[SELF, V] = ev.factory(self, next)
 }
 

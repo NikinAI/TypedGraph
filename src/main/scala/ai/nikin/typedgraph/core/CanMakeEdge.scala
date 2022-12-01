@@ -19,6 +19,6 @@ In the scope of:
   """)
 case class CanMakeEdge[
     FROM <: Vertex[FROM],
-    EDGE[A <: Vertex[A], B <: Vertex[B] { type IN = A#OUT }] <: Edge[A, EDGE, B],
-    TO <: Vertex[TO] { type IN = FROM#OUT },
+    EDGE[A <: Vertex[A], B <: VertexTO[A, B]] <: Edge[A, EDGE, B],
+    TO <: VertexTO[FROM, TO],
 ](factory: EdgeFactory[EDGE])

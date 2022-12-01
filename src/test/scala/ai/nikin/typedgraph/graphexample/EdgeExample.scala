@@ -4,7 +4,7 @@ import ai.nikin.typedgraph.core._
 
 class EdgeExample[
     FROM <: Vertex[FROM],
-    TO <: Vertex[TO] { type IN = FROM#OUT },
+    TO <: VertexTO[FROM, TO],
 ] private (
     override val from: FROM,
     override val to:   TO,
@@ -14,7 +14,7 @@ class EdgeExample[
 object EdgeExample extends EdgeFactory[EdgeExample] {
   override def apply[
       FROM <: Vertex[FROM],
-      TO <: Vertex[TO] { type IN = FROM#OUT },
+      TO <: VertexTO[FROM, TO],
   ](
       from:      FROM,
       to:        TO,

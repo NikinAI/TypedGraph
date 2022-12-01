@@ -20,23 +20,23 @@ class Path[FROM <: Vertex[FROM], TO <: Vertex[TO]](
   lazy override private[core] val to:   TO   = super.to.asInstanceOf[TO]
 
   def >>>[
-      V <: Vertex[V] { type IN = TO#OUT },
-      EDGE[A <: Vertex[A], B <: Vertex[B] { type IN = A#OUT }] <: Edge[A, EDGE, B],
+      V <: VertexTO[TO, V],
+      EDGE[A <: Vertex[A], B <: VertexTO[A, B]] <: Edge[A, EDGE, B],
   ](next: V)(implicit ev: CanMakeEdge[TO, EDGE, V]): Path[FROM, V] =
     addEdge[TO, EDGE, V](to >>> next)
 
   private[core] def addEdge[
       F <: Vertex[F],
-      EDGE[A <: Vertex[A], B <: Vertex[B] { type IN = A#OUT }] <: Edge[A, EDGE, B],
-      T <: Vertex[T] { type IN = F#OUT },
+      EDGE[A <: Vertex[A], B <: VertexTO[A, B]] <: Edge[A, EDGE, B],
+      T <: VertexTO[F, T],
   ](e: EDGE[F, T]): Path[FROM, T] = new Path(edges :+ e.dropType)
 }
 
 object Path {
   def apply[
       FROM <: Vertex[FROM],
-      EDGE[A <: Vertex[A], B <: Vertex[B] { type IN = A#OUT }] <: Edge[A, EDGE, B],
-      TO <: Vertex[TO] { type IN = FROM#OUT },
+      EDGE[A <: Vertex[A], B <: VertexTO[A, B]] <: Edge[A, EDGE, B],
+      TO <: VertexTO[FROM, TO],
   ](edge: EDGE[FROM, TO]): Path[FROM, TO] = new Path(List(edge.dropType))
 
   def apply(edge: AnyEdge, edges: AnyEdge*): AnyPath = new TypelessPath(edge :: edges.toList) {}

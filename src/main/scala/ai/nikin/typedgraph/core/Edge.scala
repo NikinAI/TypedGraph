@@ -14,8 +14,8 @@ sealed abstract class TypelessEdge(
 
 class Edge[
     FROM <: Vertex[FROM],
-    EDGE[A <: Vertex[A], B <: Vertex[B] { type IN = A#OUT }] <: Edge[A, EDGE, B],
-    TO <: Vertex[TO] { type IN = FROM#OUT },
+    EDGE[A <: Vertex[A], B <: VertexTO[A, B]] <: Edge[A, EDGE, B],
+    TO <: VertexTO[FROM, TO],
 ](
     override private[core] val from: FROM,
     override private[core] val to:   TO,
@@ -24,8 +24,8 @@ class Edge[
   lazy override private[core] val asPath: Path[FROM, TO] = Path[FROM, EDGE, TO](self)
 
   def >>>[
-      V <: Vertex[V] { type IN = TO#OUT },
-      EDGE[A <: Vertex[A], B <: Vertex[B] { type IN = A#OUT }] <: Edge[A, EDGE, B],
+      V <: VertexTO[TO, V],
+      EDGE[A <: Vertex[A], B <: VertexTO[A, B]] <: Edge[A, EDGE, B],
   ](next: V)(implicit ev: CanMakeEdge[TO, EDGE, V]): Path[FROM, V] = asPath >>> next
 }
 

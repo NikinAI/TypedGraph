@@ -81,4 +81,24 @@ class PathTest extends Test("Path") {
     """))("Connecting", "is not allowed with your current setup!",
       "To enable this connectivity, add", "implicit", "CanMakeEdge", ">>>", "SecondVertex")
   }
+
+  test("content flow constraints") {
+    checkCompileError(compileErrors("""
+      implicit def ev1[IN <: Content, OUT <: Content]: CanMakeEdge[VertexExample[IN, OUT], SecondEdge, SecondVertex[OUT]] =
+        CanMakeEdge[VertexExample[IN, OUT], SecondEdge, SecondVertex[OUT]](SecondEdge)
+
+      implicit def ev2[IN <: Content, OUT <: Content]: CanMakeEdge[SecondVertex[IN], EdgeExample, VertexExample[IN, OUT]] =
+        CanMakeEdge[SecondVertex[IN], EdgeExample, VertexExample[IN, OUT]](EdgeExample)
+      
+      val v1 = VertexExample[ContentA, ContentB]("v1")
+      val v2 = SecondVertex[ContentB]("v2")
+      val v3 = VertexExample[ContentC, ContentD]("v3")
+      val p1 = v1 >>> v2 >>> v3
+    """))(
+      "inferred type arguments",
+      "do not conform to method",
+      "type parameter bounds",
+      "VertexTO",
+    )
+  }
 }

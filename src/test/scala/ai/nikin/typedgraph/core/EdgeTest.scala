@@ -76,7 +76,7 @@ class EdgeTest extends Test("Edge") {
       implicit def ev1[IN <: Content, OUT <: Content, B <: Content]: CanMakeEdge[VertexExample[IN, OUT], SecondEdge, SecondVertex[OUT]] =
         CanMakeEdge[VertexExample[IN, B], SecondEdge, SecondVertex[OUT]](SecondEdge)
     """)
-    )("type arguments", "do not conform to method", "type parameter bounds", "type IN = FROM#OUT")
+    )("type arguments", "do not conform to method", "type parameter bounds", "VertexTO")
 
     checkCompileError(compileErrors("""
       implicit def ev1[IN <: Content, OUT <: Content]: CanMakeEdge[VertexExample[IN, OUT], SecondEdge, SecondVertex[OUT]] =
@@ -89,7 +89,7 @@ class EdgeTest extends Test("Edge") {
       "inferred type arguments",
       "do not conform to method",
       "type parameter bounds",
-      "type IN = A#OUT",
+      "VertexTO",
     )
   }
 }
