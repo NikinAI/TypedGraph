@@ -1,6 +1,6 @@
 package ai.nikin.typedgraph.core
 
-import ai.nikin.typedgraph.core.testUtils.Test
+import ai.nikin.typedgraph.testUtils.Test
 
 class GraphTest extends Test("Graph") {
   test("create/retrieve") {

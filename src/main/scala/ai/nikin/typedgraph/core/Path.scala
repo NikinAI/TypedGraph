@@ -22,7 +22,8 @@ class Path[FROM <: Vertex[FROM], TO <: Vertex[TO]](
   def >>>[
       V <: Vertex[V],
       EDGE[A <: Vertex[A], B <: Vertex[B]] <: Edge[A, EDGE, B],
-  ](next: V)(implicit factory: EdgeFactory[EDGE]): Path[FROM, V] = addEdge[TO, EDGE, V](to >>> next)
+  ](next: V)(implicit ev: CanMakeEdge[TO, EDGE, V]): Path[FROM, V] =
+    addEdge[TO, EDGE, V](to >>> next)
 
   private[core] def addEdge[
       F <: Vertex[F],

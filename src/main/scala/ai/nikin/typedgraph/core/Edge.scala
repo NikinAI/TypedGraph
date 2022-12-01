@@ -1,5 +1,7 @@
 package ai.nikin.typedgraph.core
 
+import scala.annotation.unused
+
 sealed abstract class TypelessEdge(
     private[core] val from: AnyVertex,
     private[core] val to:   AnyVertex,
@@ -17,13 +19,14 @@ class Edge[
 ](
     override private[core] val from: FROM,
     override private[core] val to:   TO,
-) extends TypelessEdge(from, to) { self: EDGE[FROM, TO] =>
-  lazy override private[core] val asPath: Path[FROM, TO] = Path(self)
+)(implicit @unused ev:                       CanMakeEdge[FROM, EDGE, TO])
+    extends TypelessEdge(from, to) { self: EDGE[FROM, TO] =>
+  lazy override private[core] val asPath: Path[FROM, TO] = Path[FROM, EDGE, TO](self)
 
   def >>>[
       V <: Vertex[V],
       EDGE[A <: Vertex[A], B <: Vertex[B]] <: Edge[A, EDGE, B],
-  ](next: V)(implicit factory: EdgeFactory[EDGE]): Path[FROM, V] = asPath >>> next
+  ](next: V)(implicit ev: CanMakeEdge[TO, EDGE, V]): Path[FROM, V] = asPath >>> next
 }
 
 object Edge {

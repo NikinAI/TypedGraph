@@ -11,7 +11,7 @@ class Vertex[SELF <: Vertex[SELF]](override val label: String) extends TypelessV
   def >>>[
       V <: Vertex[V],
       EDGE[A <: Vertex[A], B <: Vertex[B]] <: Edge[A, EDGE, B],
-  ](next: V)(implicit factory: EdgeFactory[EDGE]): EDGE[SELF, V] = factory(self, next)
+  ](next: V)(implicit ev: CanMakeEdge[SELF, EDGE, V]): EDGE[SELF, V] = ev.factory(self, next)
 }
 
 object Vertex {

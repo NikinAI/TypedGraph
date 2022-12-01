@@ -1,6 +1,7 @@
 package ai.nikin.typedgraph.core
 
-import ai.nikin.typedgraph.core.testUtils.{Test, VertexExample}
+import ai.nikin.typedgraph.graphExample.VertexExample
+import ai.nikin.typedgraph.testUtils.Test
 
 class VertexTest extends Test("Vertex") {
   test("create/retrieve") {
