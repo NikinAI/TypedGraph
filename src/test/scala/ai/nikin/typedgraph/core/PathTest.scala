@@ -1,6 +1,7 @@
 package ai.nikin.typedgraph.core
 
 import ai.nikin.typedgraph.core.testUtils.{Test, VertexExample}
+import ai.nikin.typedgraph.core.testUtils.EdgeExample._
 
 class PathTest extends Test("Path") {
   test("create/retrieve") {
