@@ -31,4 +31,4 @@ jobs:
 
       # uses sbt-github-packages, see build.sbt
       - name: Publish with SBT
-        run: bin/sbt publish
+        run: sbt publish
