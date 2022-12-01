@@ -1,7 +1,7 @@
 package ai.nikin.typedgraph.core
 
-import ai.nikin.typedgraph.graphExample._
-import ai.nikin.typedgraph.testUtils.Test
+import ai.nikin.typedgraph.graphexample._
+import ai.nikin.typedgraph.testutils.Test
 
 class EdgeTest extends Test("Edge") {
   test("create/retrieve") {

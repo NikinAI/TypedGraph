@@ -1,4 +1,4 @@
-package ai.nikin.typedgraph.graphExample
+package ai.nikin.typedgraph.graphexample
 
 import ai.nikin.typedgraph.core._
 

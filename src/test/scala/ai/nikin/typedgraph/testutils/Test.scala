@@ -1,4 +1,4 @@
-package ai.nikin.typedgraph.testUtils
+package ai.nikin.typedgraph.testutils
 
 abstract class Test(name: String) extends munit.FunSuite {
   def checkCompileError(compileError: String)(lookFor: String*): Unit =
