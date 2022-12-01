@@ -1,9 +1,9 @@
 package ai.nikin.typedgraph.core
 
-trait EdgeFactory[EDGE[A <: Vertex[A], B <: Vertex[B]] <: Edge[A, EDGE, B]] {
+trait EdgeFactory[EDGE[A <: Vertex[A], B <: VertexTO[A, B]] <: Edge[A, EDGE, B]] {
   def apply[
       FROM <: Vertex[FROM],
-      TO <: Vertex[TO],
+      TO <: VertexTO[FROM, TO],
   ](
       from:      FROM,
       to:        TO,
