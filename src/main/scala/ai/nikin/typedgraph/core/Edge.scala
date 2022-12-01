@@ -1,13 +1,24 @@
 package ai.nikin.typedgraph.core
 
+import java.rmi.UnexpectedException
 import scala.annotation.unused
 
 sealed abstract class TypelessEdge(
     private[core] val from: AnyVertex,
     private[core] val to:   AnyVertex,
 ) { self =>
+  override def toString: String = s"$from > $to"
   lazy final private[core] val dropType: AnyEdge = self
   private[core] def asPath:              AnyPath = Path(self)
+
+  lazy private[core] val flatten: Set[AnyEdge] =
+    self match {
+      case Edge(s: VertexCombiner[_], d: VertexCombiner[_]) =>
+        throw new UnexpectedException(s"An edge should not have a combiner ($s) to a combiner ($d)")
+      case Edge(s: VertexCombiner[_], d)                    => s.vertices.map(Edge(_, d)).toSet
+      case Edge(s, d: VertexCombiner[_])                    => d.vertices.map(Edge(s, _)).toSet
+      case e                                                => Set(e)
+    }
 
   private[core] def >?>(next: AnyVertex): AnyPath = asPath >?> next
 }
@@ -31,4 +42,6 @@ class Edge[
 
 object Edge {
   def apply(from: AnyVertex, to: AnyVertex): AnyEdge = new TypelessEdge(from, to) {}
+
+  private[core] def unapply(e: AnyEdge): Some[(AnyVertex, AnyVertex)] = Some((e.from, e.to))
 }
