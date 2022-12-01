@@ -2,10 +2,11 @@ package ai.nikin.typedgraph.core
 
 sealed abstract class TypelessPath(
     private[core] val edges: List[AnyEdge]
-) {
+) { self =>
   private[core] def from:                AnyVertex       = edges.head.from
   private[core] def to:                  AnyVertex       = edges.last.to
   lazy final private[core] val vertices: List[AnyVertex] = from :: edges.map(_.to)
+  lazy final private[core] val dropType: AnyPath         = self
 
   private[core] def >>>(next: AnyVertex): AnyPath = addEdge(to >>> next)
 
@@ -18,15 +19,24 @@ class Path[FROM <: Vertex[FROM], TO <: Vertex[TO]](
   lazy override private[core] val from: FROM = super.from.asInstanceOf[FROM]
   lazy override private[core] val to:   TO   = super.to.asInstanceOf[TO]
 
-  def >>>[V <: Vertex[V]](next: V): Path[FROM, V] = addEdge[TO, V](to >>> next)
+  def >>>[
+      V <: Vertex[V],
+      EDGE[A <: Vertex[A], B <: Vertex[B]] <: Edge[A, EDGE, B],
+  ](next: V)(implicit factory: EdgeFactory[EDGE]): Path[FROM, V] = addEdge[TO, EDGE, V](to >>> next)
 
-  private[core] def addEdge[F <: Vertex[F], T <: Vertex[T]](e: Edge[F, T]): Path[FROM, T] =
-    new Path(edges :+ e)
+  private[core] def addEdge[
+      F <: Vertex[F],
+      EDGE[A <: Vertex[A], B <: Vertex[B]] <: Edge[A, EDGE, B],
+      T <: Vertex[T],
+  ](e: EDGE[F, T]): Path[FROM, T] = new Path(edges :+ e.dropType)
 }
 
 object Path {
-  def apply[FROM <: Vertex[FROM], TO <: Vertex[TO]](edge: Edge[FROM, TO]): Path[FROM, TO] =
-    new Path(List(edge))
+  def apply[
+      FROM <: Vertex[FROM],
+      EDGE[A <: Vertex[A], B <: Vertex[B]] <: Edge[A, EDGE, B],
+      TO <: Vertex[TO],
+  ](edge: EDGE[FROM, TO]): Path[FROM, TO] = new Path(List(edge.dropType))
 
   def apply(edge: AnyEdge, edges: AnyEdge*): AnyPath = new TypelessPath(edge :: edges.toList) {}
 }
