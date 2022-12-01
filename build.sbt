@@ -1,6 +1,8 @@
 lazy val root =
   project
     .in(file("."))
+    .enablePlugins(GitVersioning)
+.    enablePlugins(BuildInfoPlugin)
     .settings(
       scalaVersion                           := "2.13.10",
       name                                   := "Typed Graph",
@@ -24,15 +26,13 @@ lazy val root =
           "-Ywarn-unused:params", "-Ywarn-unused:locals", "-Ywarn-value-discard",
           "-Ywarn-unused:privates",
         ),
-      version                                := {
-        val v = IO.readLines(new File("VERSION")).head
 
-        if(!v.startsWith("v")) throw new IllegalStateException(
-          "You need to have the version number to start with 'v'. Instead found: $v"
-        )
 
-        v
-      },
+
+      // https://github.com/target/data-validator/blob/d3ae90ea1c84d922e50ad097f517e44852711c1c/build.sbt#LL11-L12C27
+      git.useGitDescribe := true,
+      // https://github.com/target/data-validator/blob/d3ae90ea1c84d922e50ad097f517e44852711c1c/build.sbt#LL27
+      publishTo := githubPublishTo.value,
 
       // https://github.com/djspiewak/sbt-github-packages#usage
       githubOwner       := "NikinAI",
