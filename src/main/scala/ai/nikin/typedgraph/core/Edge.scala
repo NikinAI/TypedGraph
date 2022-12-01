@@ -9,23 +9,23 @@ sealed abstract class TypelessEdge(
   lazy final private[core] val dropType: AnyEdge = self
   private[core] def asPath:              AnyPath = Path(self)
 
-  private[core] def >>>(next: AnyVertex): AnyPath = asPath >>> next
+  private[core] def >?>(next: AnyVertex): AnyPath = asPath >?> next
 }
 
 class Edge[
     FROM <: Vertex[FROM],
-    EDGE[A <: Vertex[A], B <: Vertex[B]] <: Edge[A, EDGE, B],
-    TO <: Vertex[TO],
+    EDGE[A <: Vertex[A], B <: VertexTO[A, B]] <: Edge[A, EDGE, B],
+    TO <: VertexTO[FROM, TO],
 ](
     override private[core] val from: FROM,
     override private[core] val to:   TO,
-)(implicit @unused ev:                       CanMakeEdge[FROM, EDGE, TO])
+)(implicit @unused ev:               CanMakeEdge[FROM, EDGE, TO])
     extends TypelessEdge(from, to) { self: EDGE[FROM, TO] =>
   lazy override private[core] val asPath: Path[FROM, TO] = Path[FROM, EDGE, TO](self)
 
   def >>>[
-      V <: Vertex[V],
-      EDGE[A <: Vertex[A], B <: Vertex[B]] <: Edge[A, EDGE, B],
+      V <: VertexTO[TO, V],
+      EDGE[A <: Vertex[A], B <: VertexTO[A, B]] <: Edge[A, EDGE, B],
   ](next: V)(implicit ev: CanMakeEdge[TO, EDGE, V]): Path[FROM, V] = asPath >>> next
 }
 

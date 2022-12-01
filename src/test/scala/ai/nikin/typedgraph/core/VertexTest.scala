@@ -12,7 +12,7 @@ class VertexTest extends Test("Vertex") {
   }
 
   test("connect") {
-    val e = Vertex("a") >>> Vertex("b")
+    val e = Vertex("a") >?> Vertex("b")
     assertEquals(e.from.label, "a")
     assertEquals(e.to.label, "b")
   }
