@@ -56,7 +56,8 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: test
-    if: github.ref == 'refs/heads/main'
+    # TODO: uncomment before merging
+#    if: github.ref == 'refs/heads/main'
 
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
