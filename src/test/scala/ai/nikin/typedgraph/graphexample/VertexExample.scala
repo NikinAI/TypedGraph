@@ -1,4 +1,4 @@
-package ai.nikin.typedgraph.core.testUtils
+package ai.nikin.typedgraph.graphexample
 
 import ai.nikin.typedgraph.core.Vertex
 
