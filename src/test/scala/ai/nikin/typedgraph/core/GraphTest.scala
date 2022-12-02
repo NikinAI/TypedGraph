@@ -2,6 +2,8 @@ package ai.nikin.typedgraph.core
 
 import ai.nikin.typedgraph.testutils.Test
 
+import scala.collection.immutable.ListSet
+
 class GraphTest extends Test("Graph") {
   test("create/retrieve") {
     val v1 = Vertex("1")
@@ -12,6 +14,6 @@ class GraphTest extends Test("Graph") {
 
     val g = Graph(e1, e2)
 
-    assertEquals(g.edges, Set(e1, e2))
+    assertEquals(g.edges, ListSet(e1, e2))
   }
 }
