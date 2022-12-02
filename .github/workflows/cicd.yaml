@@ -57,7 +57,7 @@ jobs:
 
       - name: test coverage
         # TODO: Use coveralls
-        run: echo "test coverage"
+        run: sbt coverageReport coveralls
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
