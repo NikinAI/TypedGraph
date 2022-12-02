@@ -7,8 +7,11 @@ sealed abstract class TypelessPath(
   private[core] def to:                  AnyVertex       = edges.last.to
   lazy final private[core] val vertices: List[AnyVertex] = from :: edges.map(_.to)
   lazy final private[core] val dropType: AnyPath         = self
+  lazy final val asGraph:                Graph           = Graph(self.edges: _*)
 
   final private[core] def >?>(next: AnyVertex): AnyPath = addEdge(to >?> next)
+  final def |+|(path:               AnyPath):   Graph   = Graph((self.edges ++ path.edges): _*)
+  final def |+|(edge:               AnyEdge):   Graph   = Graph((self.edges :+ edge): _*)
 
   final private[core] def addEdge(e: AnyEdge): AnyPath = new TypelessPath(edges :+ e) {}
 }
