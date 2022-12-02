@@ -92,4 +92,60 @@ class EdgeTest extends Test("Edge") {
       "VertexTO",
     )
   }
+
+  test("combined") {
+    val v1 = SecondVertex[ContentA]("v1")
+    val v2 = SecondVertex[ContentB]("v2")
+
+    class Combiner[CONTENT](vertices: AnyVertex*)
+        extends VertexCombiner[Combiner[CONTENT]](vertices.toList) {
+      override type IN  = CONTENT
+      override type OUT = CONTENT
+    }
+
+    implicit def ev[A <: Content, B <: Content]: CanBeCombined[SecondVertex[A], SecondVertex[B], Combiner[(A, B)]] =
+      new CanBeCombined[
+        SecondVertex[A],
+        SecondVertex[B],
+        Combiner[(A, B)],
+      ] {
+        def apply(
+            a: SecondVertex[A],
+            b: SecondVertex[B],
+        ): Combiner[(A, B)] = new Combiner(a, b)
+      }
+
+    val combined: Combiner[(ContentA, ContentB)] = v1 && v2
+    assertEquals(combined.vertices, List(v1, v2))
+
+    {
+      implicit def canUseCombinedAsFrom[
+          CONTENT
+      ]: CanMakeEdge[Combiner[CONTENT], EdgeExample, ThirdVertex[CONTENT]] =
+        CanMakeEdge[Combiner[CONTENT], EdgeExample, ThirdVertex[CONTENT]](EdgeExample)
+
+      val e1: EdgeExample[Combiner[(ContentA, ContentB)], ThirdVertex[(ContentA, ContentB)]] =
+        combined >>> ThirdVertex[(ContentA, ContentB)]("v3")
+
+      assertEquals(
+        e1.flatten.map(_.toString).mkString(", "),
+        "v1 > v3, v2 > v3",
+      )
+    }
+
+    {
+      implicit def canUseCombinedAsTo[
+          CONTENT
+      ]: CanMakeEdge[ThirdVertex[CONTENT], EdgeExample, Combiner[CONTENT]] =
+        CanMakeEdge[ThirdVertex[CONTENT], EdgeExample, Combiner[CONTENT]](EdgeExample)
+
+      val e2: EdgeExample[ThirdVertex[(ContentA, ContentB)], Combiner[(ContentA, ContentB)]] =
+        ThirdVertex[(ContentA, ContentB)]("v3") >>> combined
+
+      assertEquals(
+        e2.flatten.map(_.toString).mkString(", "),
+        "v3 > v1, v3 > v2",
+      )
+    }
+  }
 }
