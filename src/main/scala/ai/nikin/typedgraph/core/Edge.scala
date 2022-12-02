@@ -11,7 +11,7 @@ sealed abstract class TypelessEdge(
   lazy final private[core] val dropType: AnyEdge = self
   private[core] def asPath:              AnyPath = Path(self)
 
-  lazy private[core] val flatten: Set[AnyEdge] =
+  lazy final private[core] val flatten: Set[AnyEdge] =
     self match {
       case Edge(s: VertexCombiner[_], d: VertexCombiner[_]) =>
         throw new UnexpectedException(s"An edge should not have a combiner ($s) to a combiner ($d)")
@@ -20,7 +20,7 @@ sealed abstract class TypelessEdge(
       case e                                                => Set(e)
     }
 
-  private[core] def >?>(next: AnyVertex): AnyPath = asPath >?> next
+  final private[core] def >?>(next: AnyVertex): AnyPath = asPath >?> next
 }
 
 class Edge[
@@ -32,9 +32,9 @@ class Edge[
     override private[core] val to:   TO,
 )(implicit @unused ev:               CanMakeEdge[FROM, EDGE, TO])
     extends TypelessEdge(from, to) { self: EDGE[FROM, TO] =>
-  lazy override private[core] val asPath: Path[FROM, TO] = Path[FROM, EDGE, TO](self)
+  lazy final override private[core] val asPath: Path[FROM, TO] = Path[FROM, EDGE, TO](self)
 
-  def >>>[
+  final def >>>[
       V <: VertexTO[TO, V],
       EDGE[A <: Vertex[A], B <: VertexTO[A, B]] <: Edge[A, EDGE, B],
   ](next: V)(implicit ev: CanMakeEdge[TO, EDGE, V]): Path[FROM, V] = asPath >>> next

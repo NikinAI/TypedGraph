@@ -1,10 +1,7 @@
 package ai.nikin.typedgraph.core
 
-class Graph(val edges: Set[AnyEdge]) {
-  private[core] val flattenedEdges: Set[AnyEdge] = edges.flatMap(_.flatten)
-
-}
+class Graph private (val edges: Set[AnyEdge]) {}
 
 object Graph {
-  def apply(edges: AnyEdge*): Graph = new Graph(edges.toSet)
+  def apply(edges: AnyEdge*): Graph = new Graph(edges.toSet.flatMap[AnyEdge](_.flatten))
 }
