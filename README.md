@@ -6,7 +6,7 @@ For more information, read the [white paper](https://github.com/NikinAI/TypedGra
 
 ## How to install
 
-For convenience, at the moment, we are using GitHub Packages, which is really not straightforward to use at the moment. 
+For convenience, and for the time being, we are using GitHub Packages, which is really not straightforward to use at the moment. 
 
 Hopefully, it will get better soon.
 
@@ -19,9 +19,9 @@ Hopefully, it will get better soon.
     * It should look like:
     ```
     [github]
-       token = "my_token"
+       token = my_token
     ```
-3. Store token under `GITHUB_TOKEN` in the environment.
+   Alternatively, you can store the token under `GITHUB_TOKEN` in the environment.
 
 ### Step 2: Set up your project
 
