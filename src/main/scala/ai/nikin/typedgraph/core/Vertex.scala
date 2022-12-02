@@ -1,9 +1,13 @@
 package ai.nikin.typedgraph.core
 
+import ai.nikin.typedgraph.core.Utils._
+
+import scala.collection.immutable.ListSet
+
 sealed abstract class TypelessVertex(private[core] val label: String) { self =>
-  lazy final private[core] val dropType: AnyVertex      = self
-  private[core] def flatten:             Set[AnyVertex] = Set(self)
-  override def toString:                 String         = label
+  lazy final private[core] val dropType: AnyVertex          = self
+  private[core] def flatten:             ListSet[AnyVertex] = ListSet(self)
+  override def toString:                 String             = label
 
   final private[core] def >?>(next: AnyVertex): TypelessEdge = Edge(this, next)
 }
@@ -35,6 +39,6 @@ abstract class VertexCombiner[
 ](
     private[core] val vertices: List[AnyVertex]
 ) extends Vertex[SELF](vertices.mkString(" && ")) { self: SELF =>
-  lazy final override private[core] val flatten: Set[AnyVertex] =
-    vertices.toSet.flatMap[AnyVertex](_.flatten)
+  lazy final override private[core] val flatten: ListSet[AnyVertex] =
+    vertices.toListSet.flatMap[AnyVertex](_.flatten)
 }

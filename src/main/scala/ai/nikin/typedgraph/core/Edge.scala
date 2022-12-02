@@ -1,7 +1,9 @@
 package ai.nikin.typedgraph.core
 
-import java.rmi.UnexpectedException
+import ai.nikin.typedgraph.core.Utils._
+
 import scala.annotation.unused
+import scala.collection.immutable.ListSet
 
 sealed abstract class TypelessEdge(
     private[core] val from: AnyVertex,
@@ -11,18 +13,19 @@ sealed abstract class TypelessEdge(
   lazy final private[core] val dropType: AnyEdge = self
   private[core] def asPath:              AnyPath = Path(self)
 
-  lazy final private[core] val flatten: Set[AnyEdge] =
+  lazy final private[core] val flatten: ListSet[AnyEdge] =
     self match {
       case Edge(s: VertexCombiner[_], d: VertexCombiner[_]) =>
-        throw new UnexpectedException(s"An edge should not have a combiner ($s) to a combiner ($d)")
+        // TODO: Detect at creation time/compile time.
+        throw new RuntimeException(s"An edge should not have a combiner ($s) to a combiner ($d)")
 
       case Edge(s: VertexCombiner[_], d) =>
         // TODO: We should be creating the right type of Edge !
-        s.vertices.map(Edge(_, d)).toSet
+        s.vertices.map(Edge(_, d)).toListSet
       case Edge(s, d: VertexCombiner[_]) =>
         // TODO: We should be creating the right type of Edge !
-        d.vertices.map(Edge(s, _)).toSet
-      case e                             => Set(e)
+        d.vertices.map(Edge(s, _)).toListSet
+      case e                             => ListSet(e)
     }
 
   final private[core] def >?>(next: AnyVertex): AnyPath = asPath >?> next

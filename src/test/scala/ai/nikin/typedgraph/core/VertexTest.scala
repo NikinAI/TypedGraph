@@ -4,6 +4,8 @@ import ai.nikin.typedgraph.graphexample.Content._
 import ai.nikin.typedgraph.graphexample.{SecondVertex, VertexExample}
 import ai.nikin.typedgraph.testutils.Test
 
+import scala.collection.immutable.ListSet
+
 class VertexTest extends Test("Vertex") {
   test("create/retrieve") {
     val label = "name"
@@ -88,6 +90,6 @@ class VertexTest extends Test("Vertex") {
 
     // TODO: Could be using shapeless or scala3 tuple to not have nested tuples.
     val combined: Combiner[((ContentA, ContentB), ContentC)] = v1 && v2 && v3
-    assertEquals(combined.flatten, Set[AnyVertex](v1 , v2, v3))
+    assertEquals(combined.flatten, ListSet[AnyVertex](v1 , v2, v3))
   }
 }
