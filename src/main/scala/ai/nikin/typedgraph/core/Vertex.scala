@@ -29,8 +29,12 @@ object Vertex {
   def apply(label: String): AnyVertex = new TypelessVertex(label) {}
 }
 
-abstract class VertexCombiner[SELF <: VertexCombiner[SELF]](
+// TODO: Lots of room for improvements
+abstract class VertexCombiner[
+    SELF <: VertexCombiner[SELF]
+](
     private[core] val vertices: List[AnyVertex]
 ) extends Vertex[SELF](vertices.mkString(" && ")) { self: SELF =>
-  override private[core] def flatten: Set[AnyVertex] = vertices.toSet.flatMap[AnyVertex](_.flatten)
+  lazy final override private[core] val flatten: Set[AnyVertex] =
+    vertices.toSet.flatMap[AnyVertex](_.flatten)
 }
