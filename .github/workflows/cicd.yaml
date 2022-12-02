@@ -16,19 +16,19 @@ jobs:
 
     steps:
       # https://github.com/scoverage/sbt-coveralls#github-actions-integration
-      - name: Git checkout (merge)
-        uses: actions/checkout@v3
-        if: github.event_name != 'pull_request'
-        with:
-          fetch-depth: 0
-
-      - name: Git checkout (PR)
-        uses: actions/checkout@v3
-        if: github.event_name == 'pull_request'
-        with:
-          fetch-depth: 0
-          # see: https://frontside.com/blog/2020-05-26-github-actions-pull_request/#how-does-pull_request-affect-actionscheckout
-          ref: ${{ github.event.pull_request.head.sha }}
+#      - name: Git checkout (merge)
+      - uses: actions/checkout@v3
+#        if: github.event_name != 'pull_request'
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Git checkout (PR)
+#        uses: actions/checkout@v3
+#        if: github.event_name == 'pull_request'
+#        with:
+#          fetch-depth: 0
+#          # see: https://frontside.com/blog/2020-05-26-github-actions-pull_request/#how-does-pull_request-affect-actionscheckout
+#          ref: ${{ github.event.pull_request.head.sha }}
       ###
 
       - uses: olafurpg/setup-scala@v13
