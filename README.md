@@ -1,5 +1,9 @@
 # TypedGraph
 
+[![Latest Release](https://badgen.net/github/release/NikinAI/TypedGraph)](https://github.com/NikinAI/TypedGraph/packages)
+
+---
+
 A library to describe **Typed Condensed Oriented Directed Acyclic Planar Multigraphs**.
 
 For more information, read the [white paper](https://github.com/NikinAI/TypedGraph/tree/main/docs).
