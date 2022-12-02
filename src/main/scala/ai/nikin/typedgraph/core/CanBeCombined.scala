@@ -13,7 +13,7 @@ To enable this combination, add:
 
 ----
     implicit val ev = new CanBeCombined[${A}, ${B}, ${OUTPUT}] {
-      def apply(a: ${A}, b: ${B}): OUTPUT = ???
+      def apply(a: ${A}, b: ${B}): ${OUTPUT} = ???
     }
 ----
 

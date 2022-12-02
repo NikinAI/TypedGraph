@@ -86,6 +86,7 @@ class VertexTest extends Test("Vertex") {
         ): Combiner[(A, B)] = new Combiner(a, b)
       }
 
+    // TODO: Could be using shapeless or scala3 tuple to not have nested tuples.
     val combined: Combiner[((ContentA, ContentB), ContentC)] = v1 && v2 && v3
     assertEquals(combined.flatten, Set[AnyVertex](v1 , v2, v3))
   }
