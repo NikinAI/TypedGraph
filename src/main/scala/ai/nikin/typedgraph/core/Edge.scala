@@ -29,6 +29,11 @@ sealed abstract class TypelessEdge(
     }
 
   final private[core] def >?>(next: AnyVertex): AnyPath = asPath >?> next
+  final def |+|(path:               AnyPath):   Graph   = Graph((self +: path.edges): _*)
+  final def |+|(e:                  AnyEdge):   Graph   = Graph(self, e)
+
+  private[core] def filterFrom(v: AnyVertex): Option[AnyEdge] = if(from == v) Some(self) else None
+  private[core] def filterTo(v:   AnyVertex): Option[AnyEdge] = if(to == v) Some(self) else None
 }
 
 class Edge[
