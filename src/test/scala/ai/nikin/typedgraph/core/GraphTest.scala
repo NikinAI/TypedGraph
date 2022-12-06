@@ -15,6 +15,8 @@ class GraphTest extends Test("Graph") {
     val g = Graph(e1, e2)
 
     assertEquals(g.edges, ListSet(e1, e2))
+
+    assertEquals(g.findAncestors(v3), ListSet(v2))
   }
 
   test("foldLeft") {
@@ -40,6 +42,8 @@ class GraphTest extends Test("Graph") {
         case (counter, v)            => fail(s"Unexpected to find ($counter, $v) here.")
       }
     assert(counter == 3, counter)
+
+    assertEquals(g.findAncestors(v2), ListSet(v1))
   }
 
   test("foldLeft with 2 paths") {
@@ -67,6 +71,8 @@ class GraphTest extends Test("Graph") {
         case v                        => fail(s"Unexpected to find $v here.")
       }
     assert(counter == 4, counter)
+
+    assertEquals(g.findAncestors(v3), ListSet(v2a, v2b))
   }
 
   test("cycle with start") {
@@ -82,5 +88,7 @@ class GraphTest extends Test("Graph") {
 
     val vertexCount = g.foldVertexLeft(0)((c, _) => c + 1)
     assert(vertexCount == 4, vertexCount)
+
+    assertEquals(g.findAncestors(a), ListSet(entrance, c))
   }
 }
