@@ -56,5 +56,9 @@ class Edge[
 object Edge {
   def apply(from: AnyVertex, to: AnyVertex): AnyEdge = new TypelessEdge(from, to) {}
 
-  private[core] def unapply(e: AnyEdge): Some[(AnyVertex, AnyVertex)] = Some((e.from, e.to))
+  def unapply(e: AnyEdge): Some[(AnyVertex, AnyVertex)] = Some((e.from, e.to))
+
+  object Triplet {
+    def unapply(e: AnyEdge): Some[(AnyVertex, AnyEdge, AnyVertex)] = Some((e.from, e, e.to))
+  }
 }
