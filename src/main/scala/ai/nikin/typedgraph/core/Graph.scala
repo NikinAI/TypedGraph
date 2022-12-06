@@ -99,10 +99,18 @@ class Graph private (val edges: ListSet[AnyEdge]) { self =>
 
   def foldVertexLeft[A](init: A)(f: (A, AnyVertex) => A): A = vertexPerDepth.deepFoldLeft(init)(f)
   def foldEdgeLeft[A](init:   A)(f: (A, AnyEdge) => A):   A = edgePerDepth.deepFoldLeft(init)(f)
+  def findAncestors(v:        AnyVertex): ListSet[AnyVertex] = Graph.findAncestors(self.edges)(v)
+
 }
 
 object Graph {
   def apply(edges: AnyEdge*): Graph = new Graph(edges.toListSet.flatMap[AnyEdge](_.flatten))
+
+  private def findAncestors(edges: ListSet[AnyEdge])(v: AnyVertex): ListSet[AnyVertex] =
+    // find all the edges that has 'v' as a TO
+    findEdgesTo(edges)(v)
+      // get all the FROM for those edges
+      .map(_.from.dropType)
 
   private def findEdgesFrom(edges: ListSet[AnyEdge])(from: AnyVertex): ListSet[AnyEdge] =
     edges.flatMap(_ filterFrom from)
