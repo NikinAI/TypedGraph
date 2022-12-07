@@ -43,7 +43,7 @@ Hopefully, it will get better soon.
           passwd = {
             import scala.util.Try
             import scala.sys.process._
-            sys.env.getOrElse("GITHUB_TOKEN", Try(s"git config github.token".!!).map(_.trim).get)
+            Try(s"git config github.token".!!).map(_.trim).getOrElse(sys.env("GITHUB_TOKEN"))
           },
         ),
      ```
@@ -51,5 +51,5 @@ Hopefully, it will get better soon.
    * ```sbt
       libraryDependencies += "ai.nikin" %% "typed-graph" % "<VERSION>",
      ``` 
-   * For version, look at [latest package](https://github.com/NikinAI/TypedGraph/packages/)
+   * For version, look at : [![Latest Release](https://badgen.net/github/release/NikinAI/TypedGraph)](https://github.com/NikinAI/TypedGraph/packages)
 
