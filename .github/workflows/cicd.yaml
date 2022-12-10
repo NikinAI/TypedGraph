@@ -15,7 +15,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      # https://github.com/scoverage/sbt-coveralls#github-actions-integration
+#      - name: Git checkout (merge)
+      - uses: actions/checkout@v3
+#        if: github.event_name != 'pull_request'
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Git checkout (PR)
+#        uses: actions/checkout@v3
+#        if: github.event_name == 'pull_request'
+#        with:
+#          fetch-depth: 0
+#          # see: https://frontside.com/blog/2020-05-26-github-actions-pull_request/#how-does-pull_request-affect-actionscheckout
+#          ref: ${{ github.event.pull_request.head.sha }}
+      ###
+
       - uses: olafurpg/setup-scala@v13
 
       - name: Cache sbt
@@ -30,8 +45,8 @@ jobs:
             ~/Library/Caches/Coursier/v1
           key: ${{ runner.os }}-sbt-cache-v2-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/build.properties') }}
 
-      - name: test
-        run: sbt ";clean;Test/compile;test"
+      - name: run tests
+        run: sbt ";clean;Test/compile;coverage;test"
 
       - name: detailed test reporting
         uses: dorny/test-reporter@v1
@@ -56,8 +71,7 @@ jobs:
           job_summary: false
 
       - name: test coverage
-        # TODO: Use coveralls
-        run: echo "test coverage"
+        run: sbt coverageReport coveralls
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 

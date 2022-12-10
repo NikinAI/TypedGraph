@@ -2,7 +2,7 @@ lazy val root =
   project
     .in(file("."))
     .enablePlugins(GitVersioning)
-.    enablePlugins(BuildInfoPlugin)
+    .enablePlugins(BuildInfoPlugin)
     .settings(
       scalaVersion                           := "2.13.10",
       name                                   := "Typed Graph",
@@ -26,13 +26,13 @@ lazy val root =
           "-Ywarn-unused:params", "-Ywarn-unused:locals", "-Ywarn-value-discard",
           "-Ywarn-unused:privates",
         ),
-
-
+      coverageEnabled                        := true,
+      CoverallsKeys.coberturaFile := crossTarget.value / "coverage-report" / "cobertura.xml",
 
       // https://github.com/target/data-validator/blob/d3ae90ea1c84d922e50ad097f517e44852711c1c/build.sbt#LL11-L12C27
       git.useGitDescribe := true,
       // https://github.com/target/data-validator/blob/d3ae90ea1c84d922e50ad097f517e44852711c1c/build.sbt#LL27
-      publishTo := githubPublishTo.value,
+      publishTo          := githubPublishTo.value,
 
       // https://github.com/djspiewak/sbt-github-packages#usage
       githubOwner       := "NikinAI",
